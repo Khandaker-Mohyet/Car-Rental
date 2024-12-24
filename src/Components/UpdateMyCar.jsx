@@ -1,89 +1,107 @@
-import { useContext } from "react";
-import { AuthContext } from "../Provider/AuthProvider";
-import Swal from "sweetalert2";
 import { format } from "date-fns";
+import { useLoaderData } from "react-router-dom";
+import Swal from "sweetalert2";
 
 
-const AddCar = () => {
+const UpdateMyCar = () => {
 
-  const { user } = useContext(AuthContext)
+  const update = useLoaderData()
 
-  const handelAddCar = (e) => {
-    e.preventDefault();
-
-    const formData = new FormData(e.target)
-    const carData = Object.fromEntries(formData.entries())
-
-    const { features, availability, ...newCar } = carData;
-
-    // Split features into an array
-    const arr = features.split("\n");
-    newCar.features = arr;
-
-    // Convert availability to boolean
-    newCar.availability = availability === "available";
+  const { _id, image, model, price, registration, features, location, description } = update
 
 
+  const handelUpdateCar = (e) => {
+  e.preventDefault();
 
-    const now = new Date();
-    newCar.submissionDate = format(now, "dd/MM/yyyy"); 
-    newCar.submissionTime = format(now, "hh:mm:ss a"); 
-    newCar.hrEmail = user.email;
-    newCar.hrName = user.displayName;
-    newCar.count = 0;
-    newCar.status = "panding";
-    console.log(newCar);
+  const formData = new FormData(e.target);
+  const carData = Object.fromEntries(formData.entries());
 
+  const { features, availability, ...newCar } = carData;
 
+  // Split features into an array
+  const arr = features.split("\n");
+  newCar.features = arr;
 
-    fetch('http://localhost:5000/car', {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json'
-      },
-      body: JSON.stringify(newCar)
+  // Convert availability to boolean
+  newCar.availability = availability === "available";
+
+  // Add submission date and time
+  const now = new Date();
+  newCar.submissionDate = format(now, "dd/MM/yyyy");
+  newCar.submissionTime = format(now, "hh:mm:ss a");
+
+  console.log("Updated Car Data:", newCar);
+
+  
+  fetch(`http://localhost:5000/car/${_id}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(newCar),
+  })
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error("Failed to update car data. Please check your server.");
+      }
+      return res.json();
     })
-      .then(res => res.json())
-      .then(data => {
-        console.log(data)
-        if (data.insertedId) {
-          Swal.fire({
-            title: 'success',
-            text: 'Review added successfully',
-            icon: 'success',
-            confirmButtonText: 'Cool'
-          })
+    .then((data) => {
+      console.log("Server Response:", data);
+      if (data.modifiedCount > 0) {
+        Swal.fire({
+          title: "Success",
+          text: "Car updated successfully!",
+          icon: "success",
+          confirmButtonText: "Cool",
+        });
+      } else {
+        Swal.fire({
+          title: "No Changes",
+          text: "No updates were made.",
+          icon: "info",
+          confirmButtonText: "Okay",
+        });
+      }
+    })
+    .catch((error) => {
+      console.error("Error updating car:", error);
+      Swal.fire({
+        title: "Error",
+        text: "Failed to update car. Please try again.",
+        icon: "error",
+        confirmButtonText: "Retry",
+      });
+    });
+};
 
-        }
-      })
-  }
 
 
   return (
     <div>
       <div className='lg:w-3/4 mx-auto mb-10'>
         <div className="text-center p-10">
-          <h1 className="text-5xl font-bold">Add Your car!</h1>
+          <h1 className="text-5xl font-bold">Update Your car!</h1>
           <p className="py-6">
-            A game review page is a platform where users can explore detailed reviews and ratings of video games, helping them make informed decisions.
+            A car is a platform where users can explore detailed reviews and ratings of video games, helping them make informed decisions.
           </p>
         </div>
         <div className="card  w-full shrink-0 shadow-2xl bg-[#F4F3F0]">
-          <form onSubmit={handelAddCar} className="card-body">
+          <form onSubmit={handelUpdateCar} className="card-body">
             {/* form first row */}
             <div className='flex flex-col lg:flex-row gap-5'>
               <div className="form-control flex-1">
                 <label className="label">
                   <span className="label-text">Car Model</span>
                 </label>
-                <input type="text" name='model' placeholder="Model Name" className="input input-bordered" required />
+                <input type="text" defaultValue={model} name='model' placeholder="Model Name" className="input input-bordered" required />
               </div>
               <div className="form-control flex-1">
                 <label className="label">
                   <span className="label-text">Daily Rental Price
                   </span>
                 </label>
-                <input type="text" name='price' placeholder="Amount of Daily rent" className="input input-bordered" required />
+                <input type="text" name='price' defaultValue={price} placeholder="Amount of Daily rent" className="input input-bordered" required />
               </div>
             </div>
             {/* form second row */}
@@ -112,7 +130,7 @@ const AddCar = () => {
                 <label className="label">
                   <span className="label-text">Vehicle Registration Number</span>
                 </label>
-                <input type="text" name='registration' placeholder="Car No" className="input input-bordered" required />
+                <input type="text" name='registration' defaultValue={registration} placeholder="Car No" className="input input-bordered" required />
               </div>
             </div>
             {/* form third row */}
@@ -121,7 +139,7 @@ const AddCar = () => {
                 <label className="label">
                   <span className="label-text">Features</span>
                 </label>
-                <textarea type="text" name='features' placeholder="Each requermant in a new line" className="input input-bordered" required />
+                <textarea type="text" name='features' defaultValue={features} placeholder="Each requermant in a new line" className="input input-bordered" required />
               </div>
               <div className="form-control flex-1">
                 <label className="label">
@@ -138,13 +156,13 @@ const AddCar = () => {
                 <label className="label">
                   <span className="label-text">Image</span>
                 </label>
-                <input type="text" name='image' placeholder="Image Url" className="input input-bordered" required />
+                <input type="text" defaultValue={image} readOnly name='image' placeholder="Image Url" className="input input-bordered" required />
               </div>
               <div className="form-control flex-1">
                 <label className="label">
                   <span className="label-text">Location</span>
                 </label>
-                <input type="text" name='location' placeholder="Your location" className="input input-bordered" required />
+                <input type="text" name='location' defaultValue={location} placeholder="Your location" className="input input-bordered" required />
               </div>
             </div>
             {/* Five row */}
@@ -153,12 +171,12 @@ const AddCar = () => {
                 <label className="label">
                   <span className="label-text">Description</span>
                 </label>
-                <input type="text" name='description' placeholder="Write the description" className="input input-bordered" required />
+                <input type="text" name='description' defaultValue={description} placeholder="Write the description" className="input input-bordered" required />
               </div>
             </div>
 
             <div className="form-control mt-6">
-              <button className="btn btn-success text-white">Add Your Car</button>
+              <button className="btn btn-success text-white">Update Your Car</button>
             </div>
           </form>
         </div>
@@ -167,4 +185,4 @@ const AddCar = () => {
   );
 };
 
-export default AddCar;
+export default UpdateMyCar;

@@ -7,31 +7,31 @@ const ExtraSection = () => {
   const testimonials = [
     {
       name: "John Doe",
-      profileImage: "https://via.placeholder.com/80",
+      profileImage: "https://img.freepik.com/premium-photo/3d-illustration-cartoon-business-man-character-avatar-profile_1183071-397.jpg",
       rating: 5,
       review: "Amazing service and great cars. Highly recommend!",
     },
     {
       name: "Jane Smith",
-      profileImage: "https://via.placeholder.com/80",
+      profileImage: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTlsXPsK0hT_RZe26TSQfv1banGWy_jX1C3xg&s",
       rating: 4,
       review: "Affordable prices and very easy booking process!",
     },
     {
       name: "Robert Brown",
-      profileImage: "https://via.placeholder.com/80",
+      profileImage: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcv6fhB0nGAefUmrnK4kIA193F90H9X3wwEw&s",
       rating: 5,
       review: "The 24/7 support was really helpful. Loved it!",
     },
     {
       name: "Emily Clark",
-      profileImage: "https://via.placeholder.com/80",
+      profileImage: "https://png.pngtree.com/png-clipart/20231001/original/pngtree-3d-illustration-avatar-profile-man-png-image_13026634.png",
       rating: 5,
       review: "Luxury cars at great prices. Will book again!",
     },
     {
       name: "Michael Lee",
-      profileImage: "https://via.placeholder.com/80",
+      profileImage: "https://img.freepik.com/free-psd/3d-illustration-human-avatar-profile_23-2150671151.jpg",
       rating: 4,
       review: "Easy to book and excellent service overall.",
     },
