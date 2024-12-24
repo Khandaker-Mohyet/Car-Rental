@@ -1,21 +1,46 @@
+import { useContext } from "react";
+import { AuthContext } from "../Provider/AuthProvider";
 
 
 const AddCar = () => {
 
+  const {user} = useContext(AuthContext)
+
   const handelAddCar = (e) => {
     e.preventDefault();
 
-    const model = e.target.model.value;
-    const price = e.target.price.value;
-    const availability = e.target.availability.value;
-    const registration = e.target.registration.value;
-    const features = e.target.features.value;
-    const bookingCount = e.target.bookingCount.value;
-    const image = e.target.image.value;
-    const location = e.target.location.value;
-    const description = e.target.description.value;
+    const formData = new FormData(e.target)
+    const carData = Object.fromEntries(formData.entries())
 
-    console.log(model, price, availability, registration, features, bookingCount, image, location, description)
+    const { features, availability, ...newCar } = carData;
+
+    // Split features into an array
+    const arr = features.split("\n");
+    newCar.features = arr;
+
+    // Convert availability to boolean
+    newCar.availability = availability === "available";
+
+    // Submission date and time
+    const now = new Date();
+    newCar.submissionDate = now.toLocaleDateString();
+    newCar.submissionTime = now.toLocaleTimeString();
+    newCar.hrEmail = user.email;
+    newCar.hrName = user.displayName;
+    console.log(newCar);
+    
+
+    fetch('http://localhost:5000/car', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify(newCar)
+    })
+      .then(res => res.json())
+      .then(data => {
+        console.log(data)
+      })
   }
 
 
@@ -52,7 +77,12 @@ const AddCar = () => {
                 <label className="label">
                   <span className="label-text">Availability</span>
                 </label>
-                <input type="text" name='availability' placeholder=" Yea or No" className="input input-bordered" required />
+                <select defaultValue="Pick a Job type" name=" availability" className="input input-bordered w-full">
+                  <option disabled>Pick to type</option>
+                  <option>availability</option>
+                  <option>Unavailability</option>
+                  
+                </select>
               </div>
               <div className="form-control flex-1">
                 <label className="label">
@@ -67,13 +97,13 @@ const AddCar = () => {
                 <label className="label">
                   <span className="label-text">Features</span>
                 </label>
-                <input type="text" name='features' placeholder="GPS, AC, etc." className="input input-bordered" required />
+                <input type="text" name='features' placeholder="Each requermant in a new line" className="input input-bordered" required />
               </div>
               <div className="form-control flex-1">
                 <label className="label">
                   <span className="label-text">BookingCount</span>
                 </label>
-                <input className="input input-bordered " name='bookingCount' placeholder="BookingCount" id="day" required>
+                <input className="input input-bordered " name='bookingCount' value={0} readOnly placeholder="BookingCount" id="day" required>
                 </input>
 
               </div>

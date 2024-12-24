@@ -1,0 +1,90 @@
+[
+  {
+    "carModel": "Toyota Corolla",
+    "dailyRentalPrice": 45,
+    "availability": true,
+    "vehicleRegistrationNumber": "ABC123",
+    "features": ["GPS", "AC", "Bluetooth"],
+    "description": "A reliable and fuel-efficient sedan, perfect for city drives.",
+    "bookingCount": 0,
+    "imageUrl": "https://example.com/images/toyota-corolla.jpg",
+    "location": "Los Angeles, CA"
+  },
+  {
+    "carModel": "Honda Civic",
+    "dailyRentalPrice": 50,
+    "availability": true,
+    "vehicleRegistrationNumber": "DEF456",
+    "features": ["AC", "Cruise Control"],
+    "description": "A stylish and comfortable compact car for everyday use.",
+    "bookingCount": 0,
+    "imageUrl": "https://example.com/images/honda-civic.jpg",
+    "location": "San Francisco, CA"
+  },
+  {
+    "carModel": "Ford Mustang",
+    "dailyRentalPrice": 120,
+    "availability": true,
+    "vehicleRegistrationNumber": "GHI789",
+    "features": ["GPS", "Convertible", "Bluetooth"],
+    "description": "A powerful sports car with a classic design.",
+    "bookingCount": 0,
+    "imageUrl": "https://example.com/images/ford-mustang.jpg",
+    "location": "Miami, FL"
+  },
+  {
+    "carModel": "Tesla Model 3",
+    "dailyRentalPrice": 150,
+    "availability": false,
+    "vehicleRegistrationNumber": "JKL012",
+    "features": ["Autopilot", "Electric", "GPS"],
+    "description": "A cutting-edge electric car with advanced technology.",
+    "bookingCount": 0,
+    "imageUrl": "https://example.com/images/tesla-model-3.jpg",
+    "location": "New York, NY"
+  },
+  {
+    "carModel": "Chevrolet Suburban",
+    "dailyRentalPrice": 90,
+    "availability": true,
+    "vehicleRegistrationNumber": "MNO345",
+    "features": ["AC", "GPS", "7-Seater"],
+    "description": "A spacious SUV, ideal for family trips and group travels.",
+    "bookingCount": 0,
+    "imageUrl": "https://example.com/images/chevrolet-suburban.jpg",
+    "location": "Dallas, TX"
+  },
+  {
+    "carModel": "BMW 5 Series",
+    "dailyRentalPrice": 200,
+    "availability": false,
+    "vehicleRegistrationNumber": "PQR678",
+    "features": ["GPS", "Luxury Interior", "Heated Seats"],
+    "description": "A premium luxury sedan with exceptional performance.",
+    "bookingCount": 0,
+    "imageUrl": "https://example.com/images/bmw-5-series.jpg",
+    "location": "Chicago, IL"
+  },
+  {
+    "carModel": "Mercedes-Benz",
+    "dailyRentalPrice": 100,
+    "availability": true,
+    "vehicleRegistrationNumber": "STU901",
+    "features": ["4x4", "Removable Roof", "GPS"],
+    "description": "A rugged off-road vehicle for adventurous journeys.",
+    "bookingCount": 0,
+    "imageUrl": "https://example.com/images/jeep-wrangler.jpg",
+    "location": "Denver, CO"
+  },
+  {
+    "carModel": "Hyundai Elantra",
+    "dailyRentalPrice": 40,
+    "availability": true,
+    "vehicleRegistrationNumber": "VWX234",
+    "features": ["AC", "GPS", "Bluetooth"],
+    "description": "A budget-friendly sedan with modern features.",
+    "bookingCount": 0,
+    "imageUrl": "https://example.com/images/hyundai-elantra.jpg",
+    "location": "Seattle, WA"
+  }
+]
