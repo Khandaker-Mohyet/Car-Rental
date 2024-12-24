@@ -1,8 +1,9 @@
-
+import logo from '../assets/Logo.png'
 
 const Footer = () => {
   return (
     <footer className="footer bg-base-300 text-base-content p-10">
+      <img className='w-40 h-36' src={logo} alt="" />
       <nav>
         <h6 className="footer-title">Services</h6>
         <a className="link link-hover">Branding</a>
