@@ -1,10 +1,12 @@
 import { useContext } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
+import Swal from "sweetalert2";
+import { format } from "date-fns";
 
 
 const AddCar = () => {
 
-  const {user} = useContext(AuthContext)
+  const { user } = useContext(AuthContext)
 
   const handelAddCar = (e) => {
     e.preventDefault();
@@ -21,14 +23,27 @@ const AddCar = () => {
     // Convert availability to boolean
     newCar.availability = availability === "available";
 
-    // Submission date and time
+
+
     const now = new Date();
-    newCar.submissionDate = now.toLocaleDateString();
-    newCar.submissionTime = now.toLocaleTimeString();
+    newCar.submissionDate = format(now, "dd/MM/yyyy"); 
+    newCar.submissionTime = format(now, "hh:mm:ss a"); 
     newCar.hrEmail = user.email;
     newCar.hrName = user.displayName;
+    newCar.count = 0;
+    newCar.status = "panding";
     console.log(newCar);
-    
+
+    // Submission date and time
+    // const now = new Date();
+    // newCar.submissionDate = format(now, "dd/MM/yyyy");
+    // newCar.submissionTime = format(now, "hh:mm:ss a");
+    // // newCar.submissionDate = now.toLocaleDateString();
+    // // newCar.submissionTime = now.toLocaleTimeString();
+    // newCar.hrEmail = user.email;
+    // newCar.hrName = user.displayName;
+    // console.log(newCar);
+
 
     fetch('http://localhost:5000/car', {
       method: 'POST',
@@ -40,6 +55,15 @@ const AddCar = () => {
       .then(res => res.json())
       .then(data => {
         console.log(data)
+        if (data.insertedId) {
+          Swal.fire({
+            title: 'success',
+            text: 'Review added successfully',
+            icon: 'success',
+            confirmButtonText: 'Cool'
+          })
+
+        }
       })
   }
 
@@ -77,12 +101,21 @@ const AddCar = () => {
                 <label className="label">
                   <span className="label-text">Availability</span>
                 </label>
-                <select defaultValue="Pick a Job type" name=" availability" className="input input-bordered w-full">
-                  <option disabled>Pick to type</option>
-                  <option>availability</option>
-                  <option>Unavailability</option>
-                  
+                <select
+                  name="availability"
+                  id="availability"
+                  className="select select-bordered w-full focus:ring-2 focus:ring-[#FF4C30]"
+                  required
+                >
+                  <option value="available">Available</option>
+                  <option value="unavailable">Unavailable</option>
                 </select>
+                {/* <select defaultValue="Pick a Job type" name=" availability" className="input input-bordered w-full">
+                  <option disabled>Pick to type</option>
+                  <option value="available">Available</option>
+                  <option value="unavailable">Unavailable</option>
+                  
+                </select> */}
               </div>
               <div className="form-control flex-1">
                 <label className="label">
@@ -97,7 +130,7 @@ const AddCar = () => {
                 <label className="label">
                   <span className="label-text">Features</span>
                 </label>
-                <input type="text" name='features' placeholder="Each requermant in a new line" className="input input-bordered" required />
+                <textarea type="text" name='features' placeholder="Each requermant in a new line" className="input input-bordered" required />
               </div>
               <div className="form-control flex-1">
                 <label className="label">
