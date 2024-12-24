@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import banner from '../assets/Banner.jpg'
 
 const Banner = () => {
@@ -7,11 +8,16 @@ const Banner = () => {
         <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
           Drive Your Dreams Today!
         </h1>
-        <button
-          className="px-6 py-3 text-lg font-medium text-white bg-blue-500 rounded-md shadow-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300"
+        <h1 className='text-white lg: w-6/12 md:8/12 mx-auto'>
+          We are seeking a proficient Car Rental System Developer to lead the creation of a feature-rich, user-centric car rental platform. Your role involves designing and implementing responsive frontend and robust backend systems.
+        </h1>
+        <Link to={'/availableCars'}>
+          <button
+          className="mt-5 px-4 py-2 text-lg font-medium text-white bg-purple-700 rounded-md shadow-lg hover:bg-purple-800 focus:outline-none focus:ring-2 focus:ring-blue-300"
         >
           View Available Cars
         </button>
+        </Link>
       </div>
     </div>
   );
