@@ -13,7 +13,7 @@ const Banner = () => {
         </h1>
         <Link to={'/availableCars'}>
           <button
-          className="mt-5 px-4 py-2 text-lg font-medium text-white bg-purple-700 rounded-md shadow-lg hover:bg-purple-800 focus:outline-none focus:ring-2 focus:ring-blue-300"
+          className="mt-4 bg-gradient-to-r from-pink-500 to-purple-500 text-white font-semibold py-3 px-4 rounded shadow hover:shadow-lg transform hover:scale-105 transition-all"
         >
           View Available Cars
         </button>

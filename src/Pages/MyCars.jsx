@@ -92,7 +92,7 @@ const MyCars = () => {
 
   return (
     <div>
-      <div className="overflow-x-auto p-20 mx-auto">
+      <div className="overflow-x-auto px-20 py-10 mx-auto">
         <div className="flex justify-between">
         <h1 className="text-xl font-bold mb-4">My Cars ({cars.length})</h1>
         <div className="mb-5 flex gap-4 jus">

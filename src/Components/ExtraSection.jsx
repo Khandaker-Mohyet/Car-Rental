@@ -127,7 +127,7 @@ const ExtraSection = () => {
               >
                 <h3 className="text-2xl font-bold text-gray-700 mb-4">{offer.title}</h3>
                 <p className="text-gray-600 mb-6">{offer.description}</p>
-                <button className="px-6 py-3 text-white bg-blue-500 rounded-md shadow-md hover:bg-blue-600">
+                <button className="bg-gradient-to-r from-pink-500 to-purple-500 text-white font-semibold py-2 px-4 rounded shadow hover:shadow-lg transform hover:scale-105 transition-all">
                   {offer.buttonText}
                 </button>
               </div>
