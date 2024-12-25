@@ -1,5 +1,6 @@
 import {
   createBrowserRouter,
+  Link,
 } from "react-router-dom";
 import MainLayout from "../Layout/MainLayout";
 import Home from "../Pages/Home";
@@ -67,6 +68,13 @@ const router = createBrowserRouter([
       },
           
     ]
+  },
+  {
+    path: "*",
+    element: <div className="flex flex-col items-center justify-center">
+      <div className="text-center text-3xl font-bold">Page Not Found</div>
+      <Link to="/"><button className="btn btn-primary text-center">Go Home</button></Link>
+    </div>,
   },
 ]);
 
