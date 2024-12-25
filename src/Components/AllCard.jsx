@@ -40,13 +40,13 @@ const AllCard = ({ car }) => {
       <div className="card-body">
         <h2 className="card-title">
           {model}
-          <div className={`${availability?"badge badge-secondary":"badge badge-ghost"}`}>{availability?"available":"not-available"}</div>
+          <div className={`${availability?"badge text-white badge-success":"badge badge-ghost"}`}>{availability?"available":"not-available"}</div>
         </h2>
         <h2 className="font-medium">Daily Price {price} $</h2>
         <p>Posted {timeAgo} ago</p>
         <div className="card-actions justify-center">
           <Link to={`/details/${_id}`}>
-          <button className="btn btn-success text-white btn-sm mt-5 w-full">Explore Details</button>
+          <button className="mt-6 w-full bg-gradient-to-r from-pink-500 to-purple-500 text-white font-semibold py-1 px-20 rounded shadow hover:shadow-lg transform hover:scale-105 transition-all">Explore Details</button>
           </Link>
         </div>
       </div>

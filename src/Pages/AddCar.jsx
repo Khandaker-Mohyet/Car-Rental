@@ -65,7 +65,7 @@ const AddCar = () => {
         <div className="text-center p-10">
           <h1 className="text-5xl font-bold">Add Your car!</h1>
           <p className="py-6">
-            A game review page is a platform where users can explore detailed reviews and ratings of video games, helping them make informed decisions.
+            A Car add page is a platform where users can explore detailed reviews and ratings of video games, helping them make informed decisions.
           </p>
         </div>
         <div className="card  w-full shrink-0 shadow-2xl bg-[#F4F3F0]">
@@ -158,7 +158,7 @@ const AddCar = () => {
             </div>
 
             <div className="form-control mt-6">
-              <button className="btn btn-success text-white">Add Your Car</button>
+              <button className="btn bg-gradient-to-r from-pink-500 to-purple-500 text-white">Add Your Car</button>
             </div>
           </form>
         </div>

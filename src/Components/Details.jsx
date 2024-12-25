@@ -82,7 +82,7 @@ const Details = () => {
             ))}
           </ul>
         </div>
-        <button onClick={myBooking} className="btn btn-success text-white btn-sm mt-5 w-full">Booking Now</button>
+        <button onClick={myBooking} className="mt-6 w-full bg-gradient-to-r from-pink-500 to-purple-500 text-white font-semibold py-1 px-20 rounded shadow hover:shadow-lg transform hover:scale-105 transition-all">Booking Now</button>
       </div>
     </div>
   );
