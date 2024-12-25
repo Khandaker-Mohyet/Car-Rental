@@ -27,15 +27,15 @@ const Navbar = () => {
           <ul
             tabIndex={0}
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-            <li><a>Item 1</a></li>
-            <li>
-              <a>Parent</a>
-              <ul className="p-2">
-                <li><a>Submenu 1</a></li>
-                <li><a>Submenu 2</a></li>
-              </ul>
-            </li>
-            <li><a>Item 3</a></li>
+            <NavLink className={({ isActive }) => ` font-bold ${isActive ? 'text-purple-600' : 'hover:text-purple-600'}`} to="/"><li><a>Home</a></li></NavLink>
+            <NavLink className={({ isActive }) => ` font-bold ${isActive ? 'text-purple-600' : 'hover:text-purple-600'}`} to="/availableCars"><li><a>Available Cars</a></li></NavLink>
+            {
+              user && <>
+                <NavLink className={({ isActive }) => ` font-bold ${isActive ? 'text-purple-600' : 'hover:text-purple-600'}`} to="/addCar"><li><a>Add Car</a></li></NavLink>
+                <NavLink className={({ isActive }) => ` font-bold ${isActive ? 'text-purple-600' : 'hover:text-purple-600'}`} to="/myCars"><li><a>My Cars</a></li></NavLink>
+                <NavLink className={({ isActive }) => ` font-bold ${isActive ? 'text-purple-600' : 'hover:text-purple-600'}`} to="/myBookings"><li><a>My Bookings</a></li></NavLink>
+              </>
+            }
           </ul>
         </div>
         <img className="w-24 h-20 my-auto" src={logo} alt="logo" />
@@ -44,16 +44,26 @@ const Navbar = () => {
         <ul className="menu menu-horizontal px-1">
           <NavLink className={({ isActive }) => ` font-bold ${isActive ? 'text-purple-600' : 'hover:text-purple-600'}`} to="/"><li><a>Home</a></li></NavLink>
           <NavLink className={({ isActive }) => ` font-bold ${isActive ? 'text-purple-600' : 'hover:text-purple-600'}`} to="/availableCars"><li><a>Available Cars</a></li></NavLink>
-          <NavLink className={({ isActive }) => ` font-bold ${isActive ? 'text-purple-600' : 'hover:text-purple-600'}`} to="/addCar"><li><a>Add Car</a></li></NavLink>
-          <NavLink className={({ isActive }) => ` font-bold ${isActive ? 'text-purple-600' : 'hover:text-purple-600'}`} to="/myCars"><li><a>My Cars</a></li></NavLink>
-          <NavLink className={({ isActive }) => ` font-bold ${isActive ? 'text-purple-600' : 'hover:text-purple-600'}`} to="/myBookings"><li><a>My Bookings</a></li></NavLink>
-
+          {
+            user && <>
+              <NavLink className={({ isActive }) => ` font-bold ${isActive ? 'text-purple-600' : 'hover:text-purple-600'}`} to="/addCar"><li><a>Add Car</a></li></NavLink>
+              <NavLink className={({ isActive }) => ` font-bold ${isActive ? 'text-purple-600' : 'hover:text-purple-600'}`} to="/myCars"><li><a>My Cars</a></li></NavLink>
+              <NavLink className={({ isActive }) => ` font-bold ${isActive ? 'text-purple-600' : 'hover:text-purple-600'}`} to="/myBookings"><li><a>My Bookings</a></li></NavLink>
+            </>
+          }
         </ul>
       </div>
       <div className="navbar-end">
-        {
-          user && user.email ? <img title={`${user.displayName}`} className="w-12 h-12 rounded-full border-2 border-purple-600 mr-3" src={user.photoURL} alt="" /> : ""
-        }
+        {user && user.email ? (
+          <div className="bg-gradient-to-r from-pink-500 to-purple-500 p-[2px] rounded-full mr-3">
+            <img
+              title={`${user.displayName}`}
+              className="w-12 h-12 rounded-full bg-white object-cover"
+              src={user.photoURL}
+              alt="User"
+            />
+          </div>
+        ) : ""}
         {
           user && user?.email ? <button onClick={singInOut} className="bg-gradient-to-r from-pink-500 to-purple-500 text-white font-semibold py-2 px-4 rounded shadow hover:shadow-lg transform hover:scale-105 transition-all">Log out</button> : <Link to="/auth/Login" className="bg-gradient-to-r from-pink-500 to-purple-500 text-white font-semibold py-2 px-4 rounded shadow hover:shadow-lg transform hover:scale-105 transition-all">Login</Link>
         }

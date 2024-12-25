@@ -7,7 +7,7 @@ import HomeCard from "../Components/HomeCard";
 
 const Home = () => {
   const carData = useLoaderData()
-  
+
 
   return (
     <div>
@@ -16,10 +16,10 @@ const Home = () => {
       <div>
         <h1 className="text-3xl font-bold text-gray-800 text-center my-10">All Cars</h1>
         <div className="grid md:grid-cols-2 xl:grid-cols-3">
-        {
-          carData.map(car=> <HomeCard key={car._id} car={car}></HomeCard>)
-        }
-      </div>
+          {
+            carData.slice(0, 8).map(car => <HomeCard key={car._id} car={car}></HomeCard>)
+          }
+        </div>
       </div>
       <ExtraSection></ExtraSection>
     </div>
