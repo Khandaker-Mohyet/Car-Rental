@@ -1,17 +1,53 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
 import Swal from "sweetalert2";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const MyCars = () => {
   const { user } = useContext(AuthContext);
   const [cars, setCars] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch(`http://localhost:5000/car?email=${user.email}`)
       .then((res) => res.json())
-      .then((data) => setCars(data));
-  }, [user.email]);
+      .then((data) => {
+        setCars(data);
+        // Redirect if no cars are found
+        if (data.length === 0) {
+          Swal.fire({
+            title: "No Cars Found!",
+            text: "You don't have any cars added yet.",
+            icon: "info",
+            confirmButtonText: "Add Car",
+          }).then(() => {
+            navigate("/addCar"); // Redirect to /addCar
+          });
+        }
+      });
+  }, [user.email, navigate]);
+
+
+
+  const handleSort = (sortBy) => {
+  if (sortBy === 'price') {
+    const sorted = [...cars].sort((a, b) => parseFloat(b.price) - parseFloat(a.price));
+    setCars(sorted);
+  } 
+  else if (sortBy === 'date') {
+    const sorted = [...cars].sort((a, b) => {
+      const dateA = new Date(a.submissionDate.split('/').reverse().join('-'));
+      const dateB = new Date(b.submissionDate.split('/').reverse().join('-'));
+      return dateB - dateA; // Descending order: latest date first
+    });
+    setCars(sorted);
+  }
+};
+
+
+
+
+
 
   const handelCarDelete = (id) => {
     Swal.fire({
@@ -57,12 +93,18 @@ const MyCars = () => {
   return (
     <div>
       <div className="overflow-x-auto p-20 mx-auto">
+        <div className="flex justify-between">
         <h1 className="text-xl font-bold mb-4">My Cars ({cars.length})</h1>
+        <div className="mb-5 flex gap-4 jus">
+        <button onClick={()=>handleSort('price')} className="btn btn-outline btn-accent btn-sm">Sort by Price</button>
+        <button onClick={()=>handleSort('date')} className="btn btn-outline btn-accent btn-sm">Sort by date</button>
+      </div>
+        </div>
         <table className="table">
           {/* head */}
           <thead>
             <tr>
-              <th>#</th>
+              <th>Date</th>
               <th>Car Image</th>
               <th>Car Model</th>
               <th>Daily Rental Price</th>
@@ -71,9 +113,9 @@ const MyCars = () => {
             </tr>
           </thead>
           <tbody>
-            {cars.map((car, index) => (
+            {cars.map((car) => (
               <tr key={car._id}>
-                <td>{index + 1}</td>
+                <td>{car.submissionDate}</td>
                 <td>
                   <img
                     className="w-28 h-20 rounded-xl"
