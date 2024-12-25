@@ -2,19 +2,22 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
 import Swal from "sweetalert2";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import useAxiosSecure from "../Hooks/useAxiosSecure";
 
 const MyCars = () => {
   const { user } = useContext(AuthContext);
   const [cars, setCars] = useState([]);
   const navigate = useNavigate();
+  const axiosSecure = useAxiosSecure()
 
   useEffect(() => {
-    fetch(`http://localhost:5000/car?email=${user.email}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setCars(data);
-        // Redirect if no cars are found
-        if (data.length === 0) {
+  
+    axiosSecure.get(`/car?email=${user.email}`)
+      .then(res => {
+        setCars(res.data);
+        
+        if (res.data.length === 0) {
           Swal.fire({
             title: "No Cars Found!",
             text: "You don't have any cars added yet.",
