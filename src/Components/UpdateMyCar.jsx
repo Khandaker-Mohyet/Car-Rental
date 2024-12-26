@@ -33,7 +33,7 @@ const UpdateMyCar = () => {
   console.log("Updated Car Data:", newCar);
 
   
-  fetch(`http://localhost:5000/car/${_id}`, {
+  fetch(`https://assignment-11-server-phi-seven.vercel.app/car/${_id}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",

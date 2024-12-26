@@ -17,7 +17,7 @@ const Details = () => {
       car_id: _id,
       booker_email: user.email,
     }
-    fetch('http://localhost:5000/booking', {
+    fetch('https://assignment-11-server-phi-seven.vercel.app/booking', {
       method: 'POST',
       headers: {
         'content-type': 'application/json'

@@ -36,7 +36,7 @@ const AddCar = () => {
 
 
 
-    fetch('http://localhost:5000/car', {
+    fetch('https://assignment-11-server-phi-seven.vercel.app/car', {
       method: 'POST',
       headers: {
         'content-type': 'application/json'

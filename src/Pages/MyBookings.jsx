@@ -2,23 +2,29 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../Hooks/useAxiosSecure";
-
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  Tooltip,
+  CartesianGrid,
+  ResponsiveContainer,
+} from "recharts";
 
 const MyBookings = () => {
-  const { user } = useContext(AuthContext)
-  const axiosSecure = useAxiosSecure()
-  const [bookes, setBookes] = useState([])
+  const { user } = useContext(AuthContext);
+  const axiosSecure = useAxiosSecure();
+  const [bookes, setBookes] = useState([]);
 
   useEffect(() => {
-    
-    axiosSecure.get(`/booking?email=${user.email}`)
-    .then(res => {
-      setBookes(res.data);
-    })
-  }, [user?.email])
-
-  
-
+    axiosSecure
+      .get(`/booking?email=${user.email}`)
+      .then((res) => {
+        setBookes(res.data);
+      })
+      .catch((error) => console.error(error));
+  }, [user?.email]);
 
   const handelCarDelete = (id) => {
     Swal.fire({
@@ -31,20 +37,17 @@ const MyBookings = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/booking/${id}`, {
+        fetch(`https://assignment-11-server-phi-seven.vercel.app/booking/${id}`, {
           method: "DELETE",
         })
           .then((res) => res.json())
           .then((data) => {
-            console.log(data);
             if (data.deletedCount > 0) {
               Swal.fire({
                 title: "Deleted!",
                 text: "Your car has been deleted.",
                 icon: "success",
               });
-
-              // Update the cars state after deletion
               const remainingCars = bookes.filter((car) => car._id !== id);
               setBookes(remainingCars);
             }
@@ -61,88 +64,96 @@ const MyBookings = () => {
     });
   };
 
-
-
+  // Prepare data for the chart
+  const chartData = bookes.map((book) => ({
+    model: book.model,
+    price: book.price || 0,
+  }));
 
   return (
     <div>
-      This is My booking page {bookes.length}
-      <div className="overflow-x-auto w-11/12 mx-auto">
-        <table className="table w-full border rounded-lg shadow-md bg-white">
-          {/* Table Head */}
-          <thead className="bg-gray-100">
-            <tr>
-              <th className="px-4 py-2">Car Image</th>
-              <th className="px-4 py-2">Car Model</th>
-              <th className="px-4 py-2">Booking Date</th>
-              <th className="px-4 py-2">Total Price</th>
-              <th className="px-4 py-2">Booking Status</th>
-              <th className="px-4 py-2">Actions</th>
-            </tr>
-          </thead>
-          {/* Table Body */}
-          <tbody>
-            {bookes.map((book) => (
-              <tr key={book._id} className="border-b hover:bg-gray-50">
-                {/* Car Image */}
-                <td className="px-4 py-2">
-                  <div className="flex items-center">
-                    <div className="avatar">
-                      <div className="mask mask-squircle w-16 h-16">
-                        <img
-                          src={book.image}
-                          alt={`${book.model} image`}
-                          className="object-cover"
-                        />
+      <h2 className="text-2xl font-bold text-center mb-4">
+        My Bookings ({bookes.length})
+      </h2>
+
+      {/* Show message if no bookings */}
+      {bookes.length === 0 ? (
+        <p className="text-center text-gray-500 font-semibold">
+          You have no bookings yet.
+        </p>
+      ) : (
+        <>
+          {/* Table Section */}
+          <div className="overflow-x-auto w-11/12 mx-auto mb-8">
+            <table className="table w-full border rounded-lg shadow-md bg-white">
+              <thead className="bg-gray-100">
+                <tr>
+                  <th>Car Image</th>
+                  <th>Car Model</th>
+                  <th>Booking Date</th>
+                  <th>Total Price</th>
+                  <th>Booking Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {bookes.map((book) => (
+                  <tr key={book._id} className="border-b hover:bg-gray-50">
+                    <td className="px-4 py-2">
+                      <img src={book.image} alt={book.model} className="w-16 h-16 rounded-md" />
+                    </td>
+                    <td className="px-4 py-2 font-semibold">{book.model}</td>
+                    <td className="px-4 py-2 text-gray-600">
+                      {book.submissionDate || "12/01/2025"}
+                    </td>
+                    <td className="px-4 py-2 text-green-500 font-semibold">
+                      ${book.price || "0"}
+                    </td>
+                    <td className="px-4 py-2">
+                      <span
+                        className={`badge ${
+                          book.bookingStatus === "Confirmed"
+                            ? "badge-success"
+                            : book.bookingStatus === "Pending"
+                            ? "badge-warning"
+                            : "badge-error"
+                        }`}
+                      >
+                        {book.bookingStatus || "Pending"}
+                      </span>
+                    </td>
+                    <td className="px-4 py-2">
+                      <div className="flex justify-center items-center gap-2">
+                        <button className="btn btn-warning btn-xs">Update</button>
+                        <button
+                          onClick={() => handelCarDelete(book._id)}
+                          className="btn btn-error btn-xs"
+                        >
+                          Delete
+                        </button>
                       </div>
-                    </div>
-                  </div>
-                </td>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
 
-                {/* Car Model */}
-                <td className="px-4 py-2 font-semibold">{book.model}</td>
-
-                {/* Booking Date */}
-                <td className="px-4 py-2 text-gray-600">{book.submissionDate || "12/01/2025"}</td>
-
-                {/* Total Price */}
-                <td className="px-4 py-2 text-green-500 font-semibold">
-                  ${book.price || "0"}
-                </td>
-
-                {/* Booking Status */}
-                <td className="px-4 py-2">
-                  <span
-                    className={`badge ${book.bookingStatus === "Confirmed"
-                        ? "badge-success"
-                        : book.bookingStatus === "Pending"
-                          ? "badge-warning"
-                          : "badge-error"
-                      }`}
-                  >
-                    {book.bookingStatus || "Pending"}
-                  </span>
-                </td>
-
-                {/* Actions */}
-                <td className="px-4 py-2">
-                  <div className="flex justify-center items-center gap-2">
-                    <button className="btn btn-warning btn-xs">Update</button>
-                    <button
-                      onClick={() => handelCarDelete(book._id)}
-                      className="btn btn-error btn-xs"
-                    >
-                      Delete
-                    </button>
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-
-
+          {/* Chart Section */}
+          <div className="w-11/12 mx-auto my-8">
+            <h3 className="text-xl font-semibold text-gray-800 mb-4">Rental Prices Overview</h3>
+            <ResponsiveContainer width="100%" height={300}>
+              <BarChart data={chartData} margin={{ top: 20, right: 30, left: 0, bottom: 5 }}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="model" />
+                <YAxis />
+                <Tooltip />
+                <Bar dataKey="price" fill="#8884d8" />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+        </>
+      )}
     </div>
   );
 };

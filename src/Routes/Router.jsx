@@ -23,17 +23,17 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home></Home>,
-        loader: ()=> fetch('http://localhost:5000/car')
+        loader: ()=> fetch('https://assignment-11-server-phi-seven.vercel.app/car')
       },
       {
         path: "/availableCars",
         element: <AvailableCars></AvailableCars>,
-        loader: ()=> fetch('http://localhost:5000/car')
+        loader: ()=> fetch('https://assignment-11-server-phi-seven.vercel.app/car')
       },
       {
         path: "/details/:id",
         element: <PrivateRoute><Details></Details></PrivateRoute>,
-        loader: ({params})=> fetch(`http://localhost:5000/car/${params.id}`)
+        loader: ({params})=> fetch(`https://assignment-11-server-phi-seven.vercel.app/car/${params.id}`)
       },
       {
         path: "/addCar",
@@ -50,7 +50,7 @@ const router = createBrowserRouter([
       {
         path: "/update/:id",
         element: <PrivateRoute><UpdateMyCar></UpdateMyCar></PrivateRoute>,
-        loader: ({params})=> fetch(`http://localhost:5000/car/${params.id}`)
+        loader: ({params})=> fetch(`https://assignment-11-server-phi-seven.vercel.app/car/${params.id}`)
       },
     ]
   },

@@ -52,14 +52,14 @@ const AuthProvider = ({ children }) => {
       if (currentUser?.email) {
         const user = { email: currentUser.email };
 
-        axios.post('http://localhost:5000/jwt', user, {withCredentials: true})
+        axios.post('https://assignment-11-server-phi-seven.vercel.app/jwt', user, {withCredentials: true})
           .then(res => {
             console.log(res.data)
             setLoading(false)
           })
       }
       else {
-        axios.post('http://localhost:5000/logout', {}, {
+        axios.post('https://assignment-11-server-phi-seven.vercel.app/logout', {}, {
           withCredentials: true
         })
           .then(res => {
