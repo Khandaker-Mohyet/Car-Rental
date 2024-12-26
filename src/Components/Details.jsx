@@ -1,43 +1,54 @@
-import { useContext } from "react";
-import { useLoaderData } from "react-router-dom";
+import { useContext, useState } from "react";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Provider/AuthProvider";
 import Swal from "sweetalert2";
-
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const Details = () => {
+  const carDetails = useLoaderData();
+  const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const { _id, model, image, price, availability, description, registration, features } = carDetails || {};
 
-  const carDetails = useLoaderData()
-  const { user } = useContext(AuthContext)
-  const { _id, model, image, price, availability, description, registration, features, } = carDetails || {}
+  // State for Modal and Date Picker
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(null);
 
-  // console.log(_id, user)
+  const handleBooking = () => {
+    if (!selectedDate) {
+      Swal.fire("Please select a date!", "", "warning");
+      return;
+    }
 
-  const myBooking = () => {
     const booking = {
       car_id: _id,
       booker_email: user.email,
-    }
-    fetch('https://assignment-11-server-phi-seven.vercel.app/booking', {
-      method: 'POST',
+      booking_date: selectedDate, // Include the selected date
+    };
+
+    fetch("https://assignment-11-server-phi-seven.vercel.app/booking", {
+      method: "POST",
       headers: {
-        'content-type': 'application/json'
+        "content-type": "application/json",
       },
-      body: JSON.stringify(booking)
+      body: JSON.stringify(booking),
     })
-      .then(res => res.json())
-      .then(data => {
+      .then((res) => res.json())
+      .then((data) => {
         if (data.insertedId) {
           Swal.fire({
             position: "top-end",
             icon: "success",
-            title: "Your work has been saved",
+            title: "Your booking is confirmed!",
             showConfirmButton: false,
-            timer: 1500
+            timer: 1500,
           });
+          setIsModalOpen(false); // Close the modal
+          navigate("/myBookings");
         }
-      })
-  }
-
+      });
+  };
 
   return (
     <div
@@ -45,11 +56,7 @@ const Details = () => {
       className="max-w-sm mx-auto mb-16 bg-white border border-gray-200 rounded-lg shadow-md overflow-hidden"
     >
       {/* Image */}
-      <img
-        className="w-full h-48 object-cover"
-        src={image}
-        alt={model}
-      />
+      <img className="w-full h-48 object-cover" src={image} alt={model} />
       {/* Details */}
       <div className="p-5">
         <h2 className="text-xl font-semibold text-gray-800 mb-2">{model}</h2>
@@ -82,11 +89,46 @@ const Details = () => {
             ))}
           </ul>
         </div>
-        <button onClick={myBooking} className="mt-6 w-full bg-gradient-to-r from-pink-500 to-purple-500 text-white font-semibold py-1 px-20 rounded shadow hover:shadow-lg transform hover:scale-105 transition-all">Booking Now</button>
+        <button
+          onClick={() => setIsModalOpen(true)}
+          className="mt-6 w-full bg-gradient-to-r from-pink-500 to-purple-500 text-white font-semibold py-1 px-20 rounded shadow hover:shadow-lg transform hover:scale-105 transition-all"
+        >
+          Booking Now
+        </button>
       </div>
+
+      {/* Modal */}
+      {isModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white rounded-lg shadow-lg w-96 p-6">
+            <h2 className="text-xl font-semibold mb-4">Select Booking Date</h2>
+            <DatePicker
+              selected={selectedDate}
+              onChange={(date) => setSelectedDate(date)}
+              dateFormat="yyyy-MM-dd"
+              minDate={new Date()}
+              className="w-full p-2 border rounded"
+              placeholderText="Select a date"
+            />
+            <div className="mt-6 flex justify-end gap-2">
+              <button
+                onClick={() => setIsModalOpen(false)}
+                className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleBooking}
+                className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+              >
+                Confirm Booking
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
-  
 };
 
 export default Details;

@@ -3,23 +3,11 @@ import Banner from "../Components/Banner";
 import ExtraSection from "../Components/ExtraSection";
 import WhyChooseUs from "../Components/WhyChooseUs";
 import HomeCard from "../Components/HomeCard";
-import { useEffect, useState } from "react";
-import useAxiosSecure from "../Hooks/useAxiosSecure";
+
 
 
 const Home = () => {
-  // const carData = useLoaderData()
-
-  const [carData, setCarData] = useState()
-  const axiosSecure = useAxiosSecure()
-
-  useEffect(() => {
-    axiosSecure.get(`/car}`)
-      .then(res => {
-        setCarData(res.data);
-      })
-  },[])
-
+  const carData = useLoaderData()
 
 
   return (
