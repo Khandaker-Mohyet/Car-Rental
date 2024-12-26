@@ -31,7 +31,7 @@ const AvailableCars = () => {
   return (
     <div>
      
-      <div className="w-11/12 mx-auto flex justify-between items-center mb-8 mt-2">
+      <div className="w-11/12 mx-auto flex justify-between items-center mb-8">
         <div>
           <input
             type="text"

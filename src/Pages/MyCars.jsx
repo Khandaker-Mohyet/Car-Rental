@@ -28,7 +28,7 @@ const MyCars = () => {
           });
         }
       });
-  }, [user.email, navigate]);
+  }, [user?.email]);
 
 
 

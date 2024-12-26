@@ -23,7 +23,7 @@ const useAxiosSecure = () => {
         singInOut()
           .then(() => {
             console.log('log out user')
-            navigate('/auth/register')
+            navigate('/auth/login')
           })
           .catch(error => {
           console.log(error)
