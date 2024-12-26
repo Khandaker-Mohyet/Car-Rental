@@ -63,7 +63,7 @@ const MyCars = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/car/${id}`, {
+        fetch(`https://assignment-11-server-phi-seven.vercel.app/car/${id}`, {
           method: "DELETE",
         })
           .then((res) => res.json())
