@@ -1,20 +1,23 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../Hooks/useAxiosSecure";
 
 
 const MyBookings = () => {
   const { user } = useContext(AuthContext)
+  const axiosSecure = useAxiosSecure()
   const [bookes, setBookes] = useState([])
 
   useEffect(() => {
-    fetch(`http://localhost:5000/booking?email=${user?.email}`)
-      .then(res => res.json())
-      .then(data => {
-        console.log(data)
-        setBookes(data)
-      })
+    
+    axiosSecure.get(`/booking?email=${user.email}`)
+    .then(res => {
+      setBookes(res.data);
+    })
   }, [user?.email])
+
+  
 
 
   const handelCarDelete = (id) => {
