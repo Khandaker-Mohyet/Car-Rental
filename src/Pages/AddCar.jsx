@@ -2,11 +2,13 @@ import { useContext } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
 import Swal from "sweetalert2";
 import { format } from "date-fns";
+import { useNavigate } from "react-router-dom";
 
 
 const AddCar = () => {
 
   const { user } = useContext(AuthContext)
+  const navigate = useNavigate()
 
   const handelAddCar = (e) => {
     e.preventDefault();
@@ -53,6 +55,7 @@ const AddCar = () => {
             icon: 'success',
             confirmButtonText: 'Cool'
           })
+          navigate('/myCars')
 
         }
       })
