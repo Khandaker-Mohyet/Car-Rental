@@ -6,6 +6,8 @@ This project is a car booking platform where users can view detailed information
 ## Live URL
 https://car-rental-750a3.web.app
 
+![Car Rental Dashboard](./src/assets/Screenshot.png)
+
 ## Technologies Used
 1. Frontend: React.js, TailwindCSS
 2. Backend: Node.js, Express.js
@@ -24,7 +26,6 @@ https://car-rental-750a3.web.app
 - react-router-dom (for navigation)
 - axios (for API requests)
 - jsonwebtoken (for secure authentication)
-- mongoose (for MongoDB database management)
 - dotenv (for environment variables)
 
 ## Installation
@@ -32,7 +33,7 @@ To run this project locally:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/car-booking-platform.git
+   git clone https://github.com/Khandaker-Mohyet/Car-Rental.git
    ```
 2. Navigate to the project directory:
    ```bash
