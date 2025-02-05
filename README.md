@@ -6,6 +6,8 @@ This project is a car booking platform where users can view detailed information
 ## Live URL
 https://car-rental-750a3.web.app
 
+## How to look
+
 ![Car Rental Dashboard](./src/assets/Screenshot.png)
 
 ## Technologies Used
