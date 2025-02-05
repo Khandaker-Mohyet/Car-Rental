@@ -6,12 +6,26 @@ This project is a car booking platform where users can view detailed information
 ## Live URL
 https://car-rental-750a3.web.app
 
+## Technologies Used
+1. Frontend: React.js, TailwindCSS
+2. Backend: Node.js, Express.js
+3. Database: MongoDB
+4. Authentication: Firebase, JWT
+5. Other: RESTful APIs, Cloud Storage, Filtering & Sorting
+
 ## Key Features
 - View detailed car information including model, price, availability, and features.
 - Responsive UI design.
 - Booking functionality with date selection using a calendar.
 - User authentication with email-based booking tracking.
 - Data persistence with a backend server.
+
+## Dependencies Used
+- react-router-dom (for navigation)
+- axios (for API requests)
+- jsonwebtoken (for secure authentication)
+- mongoose (for MongoDB database management)
+- dotenv (for environment variables)
 
 ## Installation
 To run this project locally:
