@@ -9,14 +9,15 @@ const MyCars = () => {
   const { user } = useContext(AuthContext);
   const [cars, setCars] = useState([]);
   const navigate = useNavigate();
-  const axiosSecure = useAxiosSecure()
+  const axiosSecure = useAxiosSecure();
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
   
     axiosSecure.get(`/car?email=${user.email}`)
       .then(res => {
         setCars(res.data);
-        
+        setLoading(false)
         if (res.data.length === 0) {
           Swal.fire({
             title: "No Cars Found!",
@@ -30,7 +31,11 @@ const MyCars = () => {
       });
   }, [user?.email]);
 
-
+  if (loading) {
+    return <div className="flex justify-center h-screen bg-base-200">
+      <span className="loading loading-infinity loading-lg text-primary"></span>
+    </div>;
+  }
 
   const handleSort = (sortBy) => {
   if (sortBy === 'price') {

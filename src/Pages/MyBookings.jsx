@@ -16,15 +16,24 @@ const MyBookings = () => {
   const { user } = useContext(AuthContext);
   const axiosSecure = useAxiosSecure();
   const [bookes, setBookes] = useState([]);
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     axiosSecure
       .get(`/booking?email=${user.email}`)
       .then((res) => {
         setBookes(res.data);
+        setLoading(false)
       })
       .catch((error) => console.error(error));
   }, [user?.email]);
+
+  if (loading) {
+    return <div className="flex justify-center items-center h-screen bg-base-200">
+      <span className="loading loading-infinity loading-lg text-primary"></span>
+    </div>;
+  }
+
 
   const handelCarDelete = (id) => {
     Swal.fire({
@@ -78,7 +87,7 @@ const MyBookings = () => {
 
       {/* Show message if no bookings */}
       {bookes.length === 0 ? (
-        <p className="text-center text-gray-500 font-semibold">
+        <p className="text-center text-gray-500 h-screen font-semibold">
           You have no bookings yet.
         </p>
       ) : (
@@ -111,13 +120,12 @@ const MyBookings = () => {
                     </td>
                     <td className="px-4 py-2">
                       <span
-                        className={`badge ${
-                          book.bookingStatus === "Confirmed"
+                        className={`badge ${book.bookingStatus === "Confirmed"
                             ? "badge-success"
                             : book.bookingStatus === "Pending"
-                            ? "badge-warning"
-                            : "badge-error"
-                        }`}
+                              ? "badge-warning"
+                              : "badge-error"
+                          }`}
                       >
                         {book.bookingStatus || "Pending"}
                       </span>
