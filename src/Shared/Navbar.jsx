@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../Provider/AuthProvider";
 import logo from '../assets/Logo.png'
+import SettingsPage from "../Pages/SettingsPage";
 
 
 const Navbar = () => {
@@ -54,6 +55,7 @@ const Navbar = () => {
         </ul>
       </div>
       <div className="navbar-end">
+        <NavLink className={'btn btn-sm gap-2 transition-colors mr-4'} to="/settingsPage">Theme</NavLink>
         {user && user.email ? (
           <div className="bg-gradient-to-r from-pink-500 to-purple-500 p-[2px] rounded-full mr-3">
             <img
