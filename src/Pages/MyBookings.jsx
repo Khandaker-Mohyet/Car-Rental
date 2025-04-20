@@ -85,8 +85,8 @@ const MyBookings = () => {
         <>
           {/* Table Section */}
           <div className="overflow-x-auto w-11/12 mx-auto mb-8">
-            <table className="table w-full border rounded-lg shadow-md bg-white">
-              <thead className="bg-gray-100">
+            <table className="table w-full rounded-lg shadow-md">
+              <thead className="">
                 <tr>
                   <th>Car Image</th>
                   <th>Car Model</th>
@@ -98,7 +98,7 @@ const MyBookings = () => {
               </thead>
               <tbody>
                 {bookes.map((book) => (
-                  <tr key={book._id} className="border-b hover:bg-gray-50">
+                  <tr key={book._id} className="border-b ">
                     <td className="px-4 py-2">
                       <img src={book.image} alt={book.model} className="w-16 h-16 rounded-md" />
                     </td>
@@ -141,7 +141,7 @@ const MyBookings = () => {
 
           {/* Chart Section */}
           <div className="w-11/12 mx-auto my-8">
-            <h3 className="text-xl font-semibold text-gray-800 mb-4">Rental Prices Overview</h3>
+            <h3 className="text-xl font-semibold mb-4">Rental Prices Overview</h3>
             <ResponsiveContainer width="100%" height={300}>
               <BarChart data={chartData} margin={{ top: 20, right: 30, left: 0, bottom: 5 }}>
                 <CartesianGrid strokeDasharray="3 3" />

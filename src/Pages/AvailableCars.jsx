@@ -41,7 +41,7 @@ const AvailableCars = () => {
             onChange={(e) => handleSearch(e.target.value)}
           />
         </div>
-         <h1 className="text-3xl font-bold text-gray-800 text-center">All Available Cars</h1>
+         <h1 className="text-3xl font-bold text-center">All Available Cars</h1>
         <div>
           <button
             className={`btn btn-sm text-white px-6 py-2 rounded-lg font-semibold transition-all duration-300 ${viewMode === "grid"
