@@ -53,7 +53,7 @@ const Details = () => {
   return (
     <div
       key={_id}
-      className="max-w-sm mx-auto mb-16 bg-white border border-gray-200 rounded-lg shadow-md overflow-hidden"
+      className="max-w-sm mx-auto mb-16 border border-gray-200 rounded-lg shadow-md overflow-hidden"
     >
       {/* Image */}
       <img className="w-full h-48 object-cover" src={image} alt={model} />
