@@ -14,6 +14,7 @@ import Register from "../Pages/Register";
 import Details from "../Components/Details";
 import PrivateRoute from "./PrivateRoute";
 import UpdateMyCar from "../Components/UpdateMyCar";
+import SettingsPage from "../Pages/SettingsPage";
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
         path: "/availableCars",
         element: <AvailableCars></AvailableCars>,
         loader: ()=> fetch('https://assignment-11-server-phi-seven.vercel.app/car')
+      },
+      {
+        path: "/settingsPage",
+        element: <SettingsPage></SettingsPage>,
       },
       {
         path: "/details/:id",
