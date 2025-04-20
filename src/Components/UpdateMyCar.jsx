@@ -86,7 +86,7 @@ const UpdateMyCar = () => {
             A car is a platform where users can explore detailed reviews and ratings of video games, helping them make informed decisions.
           </p>
         </div>
-        <div className="card  w-full shrink-0 shadow-2xl bg-[#F4F3F0]">
+        <div className="card  w-full shrink-0 shadow-2xl">
           <form onSubmit={handelUpdateCar} className="card-body">
             {/* form first row */}
             <div className='flex flex-col lg:flex-row gap-5'>
