@@ -38,7 +38,7 @@ const Navbar = () => {
             }
           </ul>
         </div>
-        <img className="w-24 h-20 my-auto" src={logo} alt="logo" />
+        <img className="hidden md:block w-24 h-20 my-auto" src={logo} alt="logo" />
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
@@ -56,7 +56,7 @@ const Navbar = () => {
       <div className="navbar-end">
         <NavLink className={'btn btn-sm gap-2 transition-colors mr-4'} to="/settingsPage">Theme</NavLink>
         {user && user.email ? (
-          <div className="bg-gradient-to-r from-pink-500 to-purple-500 p-[2px] rounded-full mr-3">
+          <div className="hidden md:block bg-gradient-to-r from-pink-500 to-purple-500 p-[2px] rounded-full mr-3">
             <img
               title={`${user.displayName}`}
               className="w-12 h-12 rounded-full bg-white object-cover"

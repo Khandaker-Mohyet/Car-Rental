@@ -53,10 +53,6 @@ const MyCars = () => {
 };
 
 
-
-
-
-
   const handelCarDelete = (id) => {
     Swal.fire({
       title: "Are you sure?",

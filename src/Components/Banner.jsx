@@ -8,7 +8,7 @@ const Banner = () => {
         <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
           Drive Your Dreams Today!
         </h1>
-        <h1 className='text-white lg: w-6/12 md:8/12 mx-auto'>
+        <h1 className='text-white hidden md:block w-11/12 lg:w-6/12 md:8/12 mx-auto'>
           We are seeking a proficient Car Rental System Developer to lead the creation of a feature-rich, user-centric car rental platform. Your role involves designing and implementing responsive frontend and robust backend systems.
         </h1>
         <Link to={'/availableCars'}>
